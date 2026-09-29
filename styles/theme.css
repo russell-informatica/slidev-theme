@@ -1,0 +1,306 @@
+/* Theme styles — auto-loaded by Slidev from `slidev-theme-seconde`.
+ * Flat, modern, programming-oriented theme (Zed-inspired). */
+
+/* ---------------------------------------------------------------------------
+ * Design tokens — single source of truth for colors.
+ * ------------------------------------------------------------------------- */
+:root {
+	--slidev-theme-primary: #7aa2ff;
+
+	/* Match the paragraph rhythm (`my-4`) so code blocks keep the same
+	 * breathing room when they sit next to each other or next to a
+	 * zero-margin element such as a blockquote. */
+	--slidev-code-margin: 1rem 0;
+
+	--c-bg: #fcfcfd;
+	--c-surface: #f7f7f9;
+	--c-surface-muted: #f1f1f4;
+	--c-text-strong: #18181b;
+	--c-text: #3f3f46;
+	--c-text-muted: #6b6b73;
+	--c-border: #e4e4e8;
+	--c-border-strong: #c9c9d0;
+	--c-on-primary: #141418;
+	--c-shadow:
+		0 1px 2px rgba(24, 24, 27, 0.04),
+		0 8px 24px rgba(24, 24, 27, 0.07);
+}
+
+html.dark {
+	--slidev-theme-primary: #7aa2ff;
+
+	--c-bg: #0e0e11;
+	--c-surface: #161619;
+	--c-surface-muted: #1d1d21;
+	--c-text-strong: #f1f1f4;
+	--c-text: #b9b9b9;
+	--c-text-muted: #8b8b93;
+	--c-border: #2a2a30;
+	--c-border-strong: #3a3a42;
+	--c-on-primary: #141418;
+	--c-shadow:
+		0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------------------------------------------------------------------------
+ * Surfaces — override the pure-white/black `bg-main` default with soft tones.
+ * ------------------------------------------------------------------------- */
+:root,
+html body,
+html #app,
+html #page-root,
+html #page-root .slidev-slide-content {
+	background-color: var(--c-bg);
+}
+
+/* ---------------------------------------------------------------------------
+ * Typography — titles bright, body softly gray.
+ * ------------------------------------------------------------------------- */
+.slidev-layout {
+	color: var(--c-text);
+}
+
+/* Reserve room at the top for the persistent topic kicker (global-top.vue). */
+.slidev-layout {
+	padding-top: 4.5rem;
+}
+
+.slidev-layout :is(h1, h2, h3, h4, h5, h6) {
+	color: var(--c-text-strong);
+}
+
+/* The default theme dims the first paragraph after a title (opacity-50).
+ * Drop it so every body line shares one color; only titles stand out. */
+.slidev-layout h1 + p {
+	opacity: 1;
+}
+
+.slidev-layout ul {
+	list-style: disc;
+}
+
+.slidev-layout li::marker {
+	color: var(--slidev-theme-primary);
+}
+
+/* ---------------------------------------------------------------------------
+ * <kbd> — flat keycap, monospace, no shadow.
+ * ------------------------------------------------------------------------- */
+.slidev-layout kbd {
+	display: inline-block;
+	padding: 0.1em 0.45em;
+	border: 1px solid var(--c-border-strong);
+	border-radius: 4px;
+	background: var(--c-surface-muted);
+	color: var(--c-text-strong);
+	font-family: var(--slidev-code-font-family);
+	font-size: 0.72em;
+	font-weight: 500;
+	line-height: 1.4;
+	box-shadow: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Code blocks — same flat border as <kbd>, plus a soft box shadow.
+ * ------------------------------------------------------------------------- */
+.slidev-layout .slidev-code {
+	border: 1px solid var(--c-border-strong);
+	box-shadow: var(--c-shadow);
+}
+
+/* ---------------------------------------------------------------------------
+ * Disable programming ligatures (Fira Code). Operators such as `>=`, `<=`,
+ * `!=`, `==` and `->` must be shown as the real ASCII characters, not as a
+ * single glyph that students could misread (≥, ≤, ≠, ≡, →).
+ * ------------------------------------------------------------------------- */
+:root,
+html body,
+.slidev-layout code,
+.slidev-layout pre,
+.slidev-layout kbd,
+.slidev-layout .slidev-code {
+	font-variant-ligatures: none;
+	font-feature-settings: "calt" 0, "liga" 0, "clig" 0, "dlig" 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Tables — minimal grid: horizontal rules only, muted mono header.
+ * ------------------------------------------------------------------------- */
+.slidev-layout table {
+	width: 100%;
+	border: 1px solid var(--c-border);
+	border-radius: 8px;
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+	box-shadow: var(--c-shadow);
+}
+
+.slidev-layout th {
+	background: var(--c-surface-muted);
+	color: var(--c-text-muted);
+	font-family: var(--slidev-code-font-family);
+	font-size: 0.78em;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	text-align: left;
+}
+
+.slidev-layout td,
+.slidev-layout th {
+	padding: 0.55rem 1rem;
+	border-bottom: 1px solid var(--c-border);
+	vertical-align: top;
+}
+
+.slidev-layout tr {
+	border: 0;
+}
+
+.slidev-layout tbody tr:last-child td {
+	border-bottom: 0;
+}
+
+.slidev-layout tbody tr:nth-child(even) {
+	background: var(--c-surface);
+}
+
+/* Opt-in compact tables — add `class: table-sm` to the slide frontmatter
+ * when a table would otherwise overflow the slide. */
+.slidev-layout.table-sm table {
+	font-size: 0.88em;
+}
+
+.slidev-layout.table-sm td,
+.slidev-layout.table-sm th {
+	padding: 0.24rem 0.8rem;
+}
+
+/* ---------------------------------------------------------------------------
+ * Boxes — generic shadowed surface (use for cards / callouts).
+ * ------------------------------------------------------------------------- */
+.slidev-layout .box {
+	padding: 1rem 1.25rem;
+	border: 1px solid var(--c-border);
+	border-radius: 12px;
+	background: var(--c-surface);
+	box-shadow: var(--c-shadow);
+}
+
+/* ---------------------------------------------------------------------------
+ * Alerts & blockquotes — same surface as `.box`, with a coloured left bar.
+ * `[!NOTE]`, `[!WARNING]` (markdown-it-github-alerts) and plain blockquotes
+ * share one look so they read uniformly across the deck.
+ * ------------------------------------------------------------------------- */
+.slidev-layout .markdown-alert,
+.slidev-layout blockquote {
+	--alert-accent: var(--slidev-theme-primary);
+	position: relative;
+	/* Match the paragraph/code rhythm (1rem) so a callout keeps breathing room
+	 * when it sits right under a table, a list or another block. */
+	margin: 1rem 0;
+	padding: 1rem 1.25rem;
+	border: 1px solid var(--c-border);
+	border-left: 0;
+	border-radius: 0 12px 12px 0;
+	background: var(--c-surface);
+	box-shadow: var(--c-shadow);
+	color: var(--c-text);
+	font-size: inherit;
+}
+
+/* Vertical accent bar. Drawn as a pseudo-element (not a border) so the
+ * top/bottom ends stay perfectly horizontal instead of being mitred. */
+.slidev-layout .markdown-alert::before,
+.slidev-layout blockquote::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 3px;
+	background: var(--alert-accent);
+}
+
+.slidev-layout .markdown-alert.markdown-alert-note .markdown-alert-title {
+	color: var(--slidev-theme-primary);
+}
+
+.slidev-layout .markdown-alert.markdown-alert-warning {
+	--alert-accent: var(--color-warning);
+}
+
+.slidev-layout .markdown-alert.markdown-alert-warning .markdown-alert-title {
+	color: var(--color-warning);
+}
+
+/* ---------------------------------------------------------------------------
+ * Badges — small pill labels. Add `badge-accent` for the primary tint,
+ * `badge-round` for the circular "vs" style.
+ * ------------------------------------------------------------------------- */
+.slidev-layout .badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4em;
+	padding: 0.15em 0.65em;
+	border: 1px solid var(--c-border);
+	border-radius: 999px;
+	background: var(--c-surface-muted);
+	color: var(--c-text-muted);
+	font-family: var(--slidev-code-font-family);
+	font-size: 0.7em;
+	font-weight: 500;
+	line-height: 1.7;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	vertical-align: middle;
+}
+
+.slidev-layout .badge-accent {
+	border-color: color-mix(
+		in srgb,
+		var(--slidev-theme-primary) 45%,
+		transparent
+	);
+	background: color-mix(
+		in srgb,
+		var(--slidev-theme-primary) 14%,
+		transparent
+	);
+	color: var(--slidev-theme-primary);
+}
+
+.slidev-layout .badge-round {
+	aspect-ratio: 1;
+	min-width: 3em;
+	padding: 0.5em;
+	font-size: 0.8em;
+}
+
+/* ---------------------------------------------------------------------------
+ * Eyebrow — uppercase kicker with a primary-colored dash, e.g. "LAYOUT · VS".
+ * ------------------------------------------------------------------------- */
+.slidev-layout .eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6em;
+	color: var(--slidev-theme-primary);
+	font-family: var(--slidev-code-font-family);
+	font-size: 0.72em;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+
+.slidev-layout .eyebrow::before {
+	content: "";
+	width: 1.8em;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--slidev-theme-primary);
+}
+
+.two-cols-header {
+	column-gap: 1.5em;
+}
