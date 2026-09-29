@@ -1,9 +1,10 @@
-# slidev-theme-seconde
+# slidev-theme-russell
 
-A [Slidev](https://sli.dev) theme for the **Informatica 2c** deck: flat,
-Zed-inspired surfaces, soft borders and shadowed cards.
+A [Slidev](https://sli.dev) theme for the decks in the
+[`russell-informatica`](https://github.com/russell-informatica) organization:
+flat, Zed-inspired surfaces, soft borders and shadowed cards.
 
-It packages everything visual that used to live in the deck repo:
+It packages everything visual that used to live in the deck repos:
 
 - design tokens (`--c-*`, `--slidev-theme-primary`) for light and dark mode;
 - global styles for tables, code blocks, `<kbd>`, callouts/alerts, `.box`,
@@ -15,19 +16,19 @@ It packages everything visual that used to live in the deck repo:
 
 ```md
 ---
-theme: slidev-theme-seconde
+theme: slidev-theme-russell
 addons:
-  - slidev-addon-seconde
+  - slidev-addon-russell
 ---
 ```
 
 The theme can be consumed as a local path (`theme: ./theme`) or, as in the
-deck repo, as an npm git dependency:
+deck repos, as an npm git dependency:
 
 ```json
 {
   "dependencies": {
-    "slidev-theme-seconde": "github:russell-informatica/slidev-theme-seconde"
+    "slidev-theme-russell": "github:russell-informatica/slidev-theme"
   }
 }
 ```
