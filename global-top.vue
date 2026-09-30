@@ -6,9 +6,13 @@ const { slides, currentPage } = useNav()
 
 const topic = computed(() => {
   for (let i = currentPage.value - 1; i >= 0; i--) {
-    const t = slides.value[i]?.meta?.slide?.frontmatter?.topic
-    if (t)
-      return t as string
+    const fm = slides.value[i]?.meta?.slide?.frontmatter ?? {}
+    // A slide can opt out of the kicker (and stop the backwards lookup)
+    // with `topic: false`, so the topic is not inherited from earlier slides.
+    if (fm.topic === false || fm.hideTopic)
+      return ''
+    if (fm.topic)
+      return fm.topic as string
   }
   return ''
 })

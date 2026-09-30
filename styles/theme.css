@@ -1,4 +1,4 @@
-/* Theme styles — auto-loaded by Slidev from `slidev-theme-seconde`.
+/* Theme styles — auto-loaded by Slidev from `slided-theme-russell`.
  * Flat, modern, programming-oriented theme (Zed-inspired). */
 
 /* ---------------------------------------------------------------------------
@@ -185,6 +185,32 @@ html body,
 	border: 1px solid var(--c-border);
 	border-radius: 12px;
 	background: var(--c-surface);
+	box-shadow: var(--c-shadow);
+}
+
+/* ---------------------------------------------------------------------------
+ * Screenshots — inline framed images. Share the exact surface language of
+ * code blocks (same border colour/size and shadow). Use on a centred
+ * block-level <img>, e.g. `<img src="..." class="shot" />`.
+ * ------------------------------------------------------------------------- */
+.slidev-layout .shot {
+	display: block;
+	margin: 1.5rem auto;
+	max-width: 100%;
+	border: 1px solid var(--c-border-strong);
+	border-radius: 12px;
+	background: var(--c-surface);
+	box-shadow: var(--c-shadow);
+	overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+ * `image-right` / `image-left` — the full-bleed image panel (the div that
+ * follows the text column). Draw the inner edge with the same border + shadow
+ * as code blocks so the image reads as a separate surface.
+ * ------------------------------------------------------------------------- */
+.slidev-slide-content .grid > .slidev-layout.default ~ div {
+	border-left: 1px solid var(--c-border-strong);
 	box-shadow: var(--c-shadow);
 }
 
