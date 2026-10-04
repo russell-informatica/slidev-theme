@@ -18,7 +18,7 @@ It packages everything visual that used to live in the deck repos:
 ---
 theme: slidev-theme-russell
 addons:
-  - slidev-addon-russell
+  - slidev-addons-russell
 ---
 ```
 
