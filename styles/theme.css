@@ -12,6 +12,12 @@
 	 * zero-margin element such as a blockquote. */
 	--slidev-code-margin: 1rem 0;
 
+	/* One corner radius shared by every "surface" — code blocks, tables,
+	 * boxes, screenshots and callouts — so they all read as one family.
+	 * `--slidev-code-radius` is the token Slidev's base code block consumes. */
+	--c-radius: 5px;
+	--slidev-code-radius: var(--c-radius);
+
 	--c-bg: #fcfcfd;
 	--c-surface: #f7f7f9;
 	--c-surface-muted: #f1f1f4;
@@ -108,6 +114,14 @@ html #page-root .slidev-slide-content {
 	box-shadow: var(--c-shadow);
 }
 
+/* Inline code must always keep the case exactly as written, even when it sits
+ * inside an uppercase context (table headers, badges, eyebrows). `text-transform`
+ * is inherited, so reset it explicitly on <code> (and <kbd>). */
+.slidev-layout code,
+.slidev-layout kbd {
+	text-transform: none;
+}
+
 /* ---------------------------------------------------------------------------
  * Disable programming ligatures (Fira Code). Operators such as `>=`, `<=`,
  * `!=`, `==` and `->` must be shown as the real ASCII characters, not as a
@@ -127,9 +141,12 @@ html body,
  * Tables — minimal grid: horizontal rules only, muted mono header.
  * ------------------------------------------------------------------------- */
 .slidev-layout table {
+	/* Match the paragraph/code/callout rhythm so a table keeps the same
+	 * breathing room when it wraps next to other blocks. */
+	margin: 1rem 0;
 	width: 100%;
 	border: 1px solid var(--c-border);
-	border-radius: 8px;
+	border-radius: var(--c-radius);
 	border-collapse: separate;
 	border-spacing: 0;
 	overflow: hidden;
@@ -183,7 +200,7 @@ html body,
 .slidev-layout .box {
 	padding: 1rem 1.25rem;
 	border: 1px solid var(--c-border);
-	border-radius: 12px;
+	border-radius: var(--c-radius);
 	background: var(--c-surface);
 	box-shadow: var(--c-shadow);
 }
@@ -198,7 +215,7 @@ html body,
 	margin: 1.5rem auto;
 	max-width: 100%;
 	border: 1px solid var(--c-border-strong);
-	border-radius: 12px;
+	border-radius: var(--c-radius);
 	background: var(--c-surface);
 	box-shadow: var(--c-shadow);
 	overflow: hidden;
@@ -229,7 +246,7 @@ html body,
 	padding: 1rem 1.25rem;
 	border: 1px solid var(--c-border);
 	border-left: 0;
-	border-radius: 0 12px 12px 0;
+	border-radius: 0 var(--c-radius) var(--c-radius) 0;
 	background: var(--c-surface);
 	box-shadow: var(--c-shadow);
 	color: var(--c-text);
