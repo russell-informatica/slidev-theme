@@ -134,7 +134,11 @@ html body,
 .slidev-layout kbd,
 .slidev-layout .slidev-code {
 	font-variant-ligatures: none;
-	font-feature-settings: "calt" 0, "liga" 0, "clig" 0, "dlig" 0;
+	font-feature-settings:
+		"calt" 0,
+		"liga" 0,
+		"clig" 0,
+		"dlig" 0;
 }
 
 /* ---------------------------------------------------------------------------
@@ -346,4 +350,19 @@ html body,
 
 .two-cols-header {
 	column-gap: 1.5em;
+}
+
+/* Pushes slidev tools bar to the upper left of the screen */
+.slidev-slide-container > .absolute.bottom-0.left-0 {
+	top: 0;
+	bottom: auto;
+}
+
+/* Menus attached to the bar (More Options, sync, recording device) open upward
+ * by default (`bottom-10`); near the top edge that would push them off screen,
+ * so drop them just below their button instead. */
+.slidev-slide-container .absolute.bottom-10.left-0.z-menu {
+	top: calc(100% + 0.4rem);
+	bottom: auto;
+	transform: translateX(-50%);
 }
