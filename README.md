@@ -11,7 +11,8 @@ It packages everything visual that used to live in the deck repos:
   *above* it only (`--flow-tight` binds a heading to its content,
   `--flow-loose` before a section heading). Nothing carries a bottom margin,
   so the first/last block of any container is flush and grid/flex/centred
-  layouts need no per-layout fixes;
+  layouts need no per-layout fixes (the two `two-cols-header` columns are
+  treated as blocks so they get `--flow` below the header row);
 - global styles for tables, code blocks, `<kbd>`, callouts/alerts, `.box`
   and `.eyebrow`;
 - component theme tokens for the [`slidev-addons-russell`](../addons) components;

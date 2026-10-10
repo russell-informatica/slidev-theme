@@ -442,6 +442,15 @@ html body,
 	column-gap: 1.5em;
 }
 
+/* The two columns sit below the header row, so treat them as blocks: they
+ * get the same gap the flow gives to any other block that follows another.
+ * (`.col-*` are layout scaffolding, not markdown blocks, so the flow rules
+ * above deliberately do not reach them.) */
+.two-cols-header .col-left,
+.two-cols-header .col-right {
+	margin-top: var(--flow);
+}
+
 /* Pushes slidev tools bar to the upper left of the screen */
 .slidev-slide-container > .absolute.bottom-0.left-0 {
 	top: 0;
