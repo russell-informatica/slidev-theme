@@ -7,10 +7,19 @@
 :root {
 	--slidev-theme-primary: #7aa2ff;
 
-	/* Match the paragraph rhythm (`my-4`) so code blocks keep the same
-	 * breathing room when they sit next to each other or next to a
-	 * zero-margin element such as a blockquote. */
-	--slidev-code-margin: 1rem 0;
+	/* Vertical rhythm — a single-direction flow. Every block carries the gap
+	 * *above* it (`--flow`), and only when it actually follows a sibling, so
+	 * the space between any two blocks is always the same and the first/last
+	 * block of a container is flush. `-tight` binds a heading to its content;
+	 * `-loose` sets a section heading apart from the block above it. */
+	--flow: 1rem;
+	--flow-tight: 0.5rem;
+	--flow-loose: 2.5rem;
+
+	/* Slidev applies `margin: var(--slidev-code-margin) !important` to code
+	 * blocks, so the flow rules below drive this token instead of fighting
+	 * the `!important`. */
+	--slidev-code-margin: 0;
 
 	/* One corner radius shared by every "surface" — code blocks, tables,
 	 * boxes, screenshots and callouts — so they all read as one family.
@@ -92,6 +101,89 @@ html #page-root .slidev-slide-content {
 }
 
 /* ---------------------------------------------------------------------------
+ * Vertical rhythm — one-direction flow.
+ *
+ * Slidev's base styles give paragraphs a symmetric `my-4` and let headings
+ * carry one-sided margins, so the real gap between two blocks depends on
+ * *which* block happens to sit above the other. This section replaces that
+ * with a single rule: every block carries the gap above it, and only when it
+ * actually follows a sibling (`:not(:first-child)`). Nothing carries a bottom
+ * margin, therefore:
+ *
+ *   - adjacent blocks are always exactly `--flow` apart;
+ *   - the first child is flush with the top of its container and the last
+ *     with the bottom, so grid/flex/centred layouts — and every `two-cols*`
+ *     column — align without per-layout patches;
+ *   - there are no margins left to collapse, so normal flow, grid items and
+ *     flex items all render identically.
+ *
+ * The selectors list block elements explicitly instead of using `* + *`, so
+ * custom components (`<ClicksSlider class="mt-2">`, …) and layout scaffolding
+ * (`.col-*`, `.my-auto`) are left alone and utility margins keep working.
+ * ------------------------------------------------------------------------- */
+
+/* Drop the symmetric rhythm inherited from the base styles. */
+.slidev-layout :is(
+	p, ul, ol, dl, blockquote, pre, hr, figure, table,
+	h1, h2, h3, h4, h5, h6
+) {
+	margin-block: 0;
+}
+
+.slidev-layout :is(.box, .markdown-alert, .shot) {
+	margin-block: 0;
+}
+
+/* One gap, above, for every block that is not the first child. */
+.slidev-layout :is(
+	p, ul, ol, dl, blockquote, pre, hr, figure, table,
+	h1, h2, h3, h4, h5, h6
+):not(:first-child) {
+	margin-top: var(--flow);
+}
+
+.slidev-layout :is(.box, .markdown-alert, .shot):not(:first-child) {
+	margin-top: var(--flow);
+}
+
+/* A heading binds to the content it introduces. */
+.slidev-layout :is(h1, h2, h3, h4, h5, h6) + :is(
+	p, ul, ol, dl, blockquote, pre, hr, figure, table,
+	.box, .markdown-alert, .shot
+):not(:first-child) {
+	margin-top: var(--flow-tight);
+}
+
+/* A section heading keeps extra room above it. */
+.slidev-layout :is(h2):not(:first-child) {
+	margin-top: var(--flow-loose);
+}
+
+/* Inside a surface the rhythm is tighter and self-contained. */
+.slidev-layout :is(.box, .markdown-alert, blockquote) :is(
+	p, ul, ol, dl, h1, h2, h3, h4, h5, h6
+):not(:first-child) {
+	margin-top: var(--flow-tight);
+}
+
+/* Code blocks read their own margin token (applied by Slidev with
+ * `!important`); point it at `--flow` so they join the rhythm above. */
+.slidev-layout .slidev-code-wrapper:not(:first-child) {
+	--slidev-code-margin: var(--flow) 0 0;
+}
+
+/* …and bind a code block to a heading right above it, like any other block. */
+.slidev-layout :is(h1, h2, h3, h4, h5, h6) + .slidev-code-wrapper:not(:first-child) {
+	--slidev-code-margin: var(--flow-tight) 0 0;
+}
+
+/* The code wrapper spaces itself; never space its internals (the optional
+ * title bar would otherwise push the `<pre>` down). */
+.slidev-layout .slidev-code-wrapper :is(pre, code) {
+	margin-block: 0;
+}
+
+/* ---------------------------------------------------------------------------
  * <kbd> — flat keycap, monospace, no shadow.
  * ------------------------------------------------------------------------- */
 .slidev-layout kbd {
@@ -147,9 +239,6 @@ html body,
  * Tables — minimal grid: horizontal rules only, muted mono header.
  * ------------------------------------------------------------------------- */
 .slidev-layout table {
-	/* Match the paragraph/code/callout rhythm so a table keeps the same
-	 * breathing room when it wraps next to other blocks. */
-	margin: 1rem 0;
 	width: 100%;
 	border: 1px solid var(--c-border);
 	border-radius: var(--c-radius);
@@ -218,7 +307,7 @@ html body,
  * ------------------------------------------------------------------------- */
 .slidev-layout .shot {
 	display: block;
-	margin: 1.5rem auto;
+	margin-inline: auto;
 	max-width: 100%;
 	border: 1px solid var(--c-border-strong);
 	border-radius: var(--c-radius);
@@ -246,9 +335,6 @@ html body,
 .slidev-layout blockquote {
 	--alert-accent: var(--slidev-theme-primary);
 	position: relative;
-	/* Match the paragraph/code rhythm (1rem) so a callout keeps breathing room
-	 * when it sits right under a table, a list or another block. */
-	margin: 1rem 0;
 	padding: 1rem 1.25rem;
 	border: 1px solid var(--c-border);
 	border-left: 0;
@@ -354,15 +440,6 @@ html body,
 
 .two-cols-header {
 	column-gap: 1.5em;
-}
-
-/* The first element of each column already sits below the header row, so its
- * top margin only adds a redundant, inconsistent gap. Drop it so the split
- * always starts with the same spacing. `!important` is needed because Slidev
- * sets the code-block margin as `var(--slidev-code-margin) !important`. */
-.two-cols-header .col-left > :first-child,
-.two-cols-header .col-right > :first-child {
-	margin-top: 0 !important;
 }
 
 /* Pushes slidev tools bar to the upper left of the screen */
