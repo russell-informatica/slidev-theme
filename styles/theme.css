@@ -130,7 +130,7 @@ html #page-root .slidev-slide-content {
 	margin-block: 0;
 }
 
-.slidev-layout :is(.box, .markdown-alert, .shot) {
+.slidev-layout :is(.box, .markdown-alert, .shot, .list-tracker) {
 	margin-block: 0;
 }
 
@@ -142,14 +142,14 @@ html #page-root .slidev-slide-content {
 	margin-top: var(--flow);
 }
 
-.slidev-layout :is(.box, .markdown-alert, .shot):not(:first-child) {
+.slidev-layout :is(.box, .markdown-alert, .shot, .list-tracker):not(:first-child) {
 	margin-top: var(--flow);
 }
 
 /* A heading binds to the content it introduces. */
 .slidev-layout :is(h1, h2, h3, h4, h5, h6) + :is(
 	p, ul, ol, dl, blockquote, pre, hr, figure, table,
-	.box, .markdown-alert, .shot
+	.box, .markdown-alert, .shot, .list-tracker
 ):not(:first-child) {
 	margin-top: var(--flow-tight);
 }
