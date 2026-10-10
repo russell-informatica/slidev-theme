@@ -7,8 +7,9 @@ flat, Zed-inspired surfaces, soft borders and shadowed cards.
 It packages everything visual that used to live in the deck repos:
 
 - design tokens (`--c-*`, `--slidev-theme-primary`) for light and dark mode;
-- global styles for tables, code blocks, `<kbd>`, callouts/alerts, `.box`,
-  `.badge` and `.eyebrow`;
+- global styles for tables, code blocks, `<kbd>`, callouts/alerts, `.box`
+  and `.eyebrow`;
+- component theme tokens for the [`slidev-addons-russell`](../addons) components;
 - the persistent `global-top.vue` topic kicker and `global-bottom.vue` footer;
 - the bundled fonts (iA Writer Quattro + Fira Code) and their defaults.
 

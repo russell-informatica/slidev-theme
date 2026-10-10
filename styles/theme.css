@@ -27,6 +27,7 @@
 	--c-border: #e4e4e8;
 	--c-border-strong: #c9c9d0;
 	--c-on-primary: #141418;
+	--c-danger: #e5484d;
 	--c-shadow:
 		0 1px 2px rgba(24, 24, 27, 0.04),
 		0 8px 24px rgba(24, 24, 27, 0.07);
@@ -44,6 +45,7 @@ html.dark {
 	--c-border: #2a2a30;
 	--c-border-strong: #3a3a42;
 	--c-on-primary: #141418;
+	--c-danger: #ff6369;
 	--c-shadow:
 		0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.4);
 }
@@ -283,47 +285,36 @@ html body,
 }
 
 /* ---------------------------------------------------------------------------
- * Badges — small pill labels. Add `badge-accent` for the primary tint,
- * `badge-round` for the circular "vs" style.
+ * Component tokens — the `slidev-addons-russell` components ship their own
+ * default styles and read these variables for appearance. Point them at the
+ * theme's palette here; anything not set keeps the component default, so the
+ * components work with any theme and adopt this one when present.
  * ------------------------------------------------------------------------- */
-.slidev-layout .badge {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: 0.4em;
-	padding: 0.15em 0.65em;
-	border: 1px solid var(--c-border);
-	border-radius: 999px;
-	background: var(--c-surface-muted);
-	color: var(--c-text-muted);
-	font-family: var(--slidev-code-font-family);
-	font-size: 0.7em;
-	font-weight: 500;
-	line-height: 1.7;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
-	vertical-align: middle;
-}
+:root {
+	--badge-bg: var(--c-surface-muted);
+	--badge-color: var(--c-text-muted);
+	--badge-border: var(--c-border);
+	--badge-font: var(--slidev-code-font-family);
+	--badge-accent-color: var(--slidev-theme-primary);
 
-.slidev-layout .badge-accent {
-	border-color: color-mix(
-		in srgb,
-		var(--slidev-theme-primary) 45%,
-		transparent
-	);
-	background: color-mix(
-		in srgb,
-		var(--slidev-theme-primary) 14%,
-		transparent
-	);
-	color: var(--slidev-theme-primary);
-}
+	--counter-border: var(--c-border);
+	--counter-radius: var(--c-radius);
+	--counter-font: var(--slidev-code-font-family);
+	--counter-hover-bg: var(--c-surface-muted);
 
-.slidev-layout .badge-round {
-	aspect-ratio: 1;
-	min-width: 3em;
-	padding: 0.5em;
-	font-size: 0.8em;
+	--clicks-slider-accent: var(--slidev-theme-primary);
+	--clicks-slider-track: var(--c-border-strong);
+	--clicks-slider-font: var(--slidev-code-font-family);
+
+	--tracker-border: var(--c-border);
+	--tracker-cell-bg: var(--c-surface);
+	--tracker-cell-fg: var(--c-text-strong);
+	--tracker-index-color: var(--c-text-muted);
+	--tracker-pointer-color: var(--slidev-theme-primary);
+	--tracker-active-bg: color-mix(in srgb, var(--slidev-theme-primary) 14%, transparent);
+	--tracker-radius: var(--c-radius);
+	--tracker-font: var(--slidev-code-font-family);
+	--tracker-out-of-bounds: var(--c-danger);
 }
 
 /* ---------------------------------------------------------------------------
