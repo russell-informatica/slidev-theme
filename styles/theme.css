@@ -367,10 +367,11 @@ html body,
 
 /* The first element of each column already sits below the header row, so its
  * top margin only adds a redundant, inconsistent gap. Drop it so the split
- * always starts with the same spacing. */
+ * always starts with the same spacing. `!important` is needed because Slidev
+ * sets the code-block margin as `var(--slidev-code-margin) !important`. */
 .two-cols-header .col-left > :first-child,
 .two-cols-header .col-right > :first-child {
-	margin-top: 0;
+	margin-top: 0 !important;
 }
 
 /* Pushes slidev tools bar to the upper left of the screen */
